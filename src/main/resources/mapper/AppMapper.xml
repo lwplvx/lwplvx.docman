@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lwplvx.docman.mapper.AppMapper">
+    <sql id="appColumns"> * </sql>
+
+    <!--public List<XXXBean> getXXXBeanList(String xxId, String xxCode);-->
+    <!--<select id="getXXXBeanList" resultType="XXBean">-->
+        <!--　　select t.* from tableName where id = #{0} and name = #{1}-->
+    <!--</select>-->
+    <!--由于是多参数那么就不能使用parameterType， 改用#｛index｝是第几个就用第几个的索引，索引从0开始-->
+    <!---->
+    <parameterMap  type="java.util.HashMap" id="parameterMapSelectByAppName">
+        <parameter property="appName"/>
+        <parameter property="projectId"/>
+    </parameterMap>
+
+    <select id="selectByAppName" parameterMap="parameterMapSelectByAppName" resultType="lwplvx.docman.model.App">
+        select <include refid="appColumns"/>
+        from app
+        where appName= #{appName} and projectId=#{projectId}
+    </select>
+
+    <select id="selectByProjectId" parameterType="int" resultType="lwplvx.docman.model.App">
+        select <include refid="appColumns"/>
+        from app
+        where projectId = #{projectId}
+    </select>
+
+
+</mapper>

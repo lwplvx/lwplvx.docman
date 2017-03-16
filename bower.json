@@ -1,0 +1,20 @@
+{
+  "name": "angular-phonecat",
+  "description": "A starter project for AngularJS",
+  "main": "",
+  "authors": [
+    "lwplvx <lwplvx@yeah.net>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.6"
+  }
+}

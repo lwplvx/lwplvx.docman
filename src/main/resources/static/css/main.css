@@ -1,0 +1,32 @@
+
+body {
+}
+
+.main-body {
+    padding-top: 85px;
+    background-color: whitesmoke;
+}
+
+.ng-cloak {
+    display: none;
+}
+
+.bg-app {
+    background-color: #0866a4 !important;
+}
+
+.card-login-width {
+    max-width: 26.5rem;
+}
+
+.card-learn-more {
+    background: url("images/alexa-login-footer-img.jpg");
+}
+
+.bg-white {
+    background-color: white !important;
+}
+
+a.bg-white:focus, a.bg-white:hover {
+    background-color: white !important;
+}

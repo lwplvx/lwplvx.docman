@@ -1,0 +1,45 @@
+server:
+    port: 8888
+    context-path: #/lwp/
+
+logging:
+    level:
+        tk.mybatis: TRACE
+
+druid: 
+    #// url: jdbc:mysql://192.168.3.197:3306/test
+    #// username: mysqluser
+    #// password: zyp624&mysql         
+    url: jdbc:mysql://localhost:3306/docman
+    username: root
+    password: zyp424626
+    initial-size: 1
+    min-idle: 1
+    max-active: 20
+    test-on-borrow: true
+
+spring:
+    mvc:
+        view:
+            prefix: /templates/
+            suffix: .ftl
+    freemarker:
+        cache: false
+        request-context-attribute: request
+
+
+mybatis:
+    type-aliases-package: lwplvx.docman.model
+    mapper-locations: classpath:mapper/*.xml
+
+mapper:
+    mappers:
+        - lwplvx.docman.util.MyMapper
+    not-empty: false
+    identity: MYSQL
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
