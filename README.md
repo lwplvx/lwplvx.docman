@@ -1,4 +1,4 @@
-# Spring Boot 集成 MyBatis, 分页插件 PageHelper, 通用 Mapper 
+# Spring Boot 集成 MyBatis,通用 Mapper,Freemarker
 
 - [Spring Boot 1.4.3.RELEASE](https://github.com/spring-projects/spring-boot)
 - [mybatis-spring-boot-starter 1.1.1](https://github.com/mybatis/spring-boot-starter)
