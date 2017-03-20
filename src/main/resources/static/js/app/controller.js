@@ -290,25 +290,30 @@ app.controller("documentAddCtrl",
                 });
         };
 
-        $scope.delete = function (docId, event) {
-            var $btn = $(event.currentTarget).button('loading');
+        $scope.deleteModel = {
+            title:"",
+            deleteCallback:{}
+        };
+        $scope.deleteDocument = function (docId, docName) {
+            $scope.deleteModel.title = docName;
+            $scope.deleteModel.deleteCallback = function () {
+                HttpPostUrl($location, $http, location.href + "/delete/" + docId,
+                    {docId: docId},
+                    function (data) {
+                        if (data.errorCode !== 200) {
+                            // if not successful, bind errors to error variables
+                           // request_form.$errors = data.errorMessage;
+                            return false;
+                        } else {
+                            // if successful, bind success message to message
+                            location.reload();
+                        }
+                    },
+                    function (e) {
+                    });
+            }
 
-            HttpPostUrl($location, $http, location.href + "/delete/" + docId,
-                {docId: docId},
-                function (data) {
-                    if (data.errorCode !== 200) {
-                        // if not successful, bind errors to error variables
-                        request_form.$errors = data.errorMessage;
-                        $btn.button('reset');
-                        return false;
-                    } else {
-                        // if successful, bind success message to message
-                        location.reload();
-                    }
-                },
-                function (e) {
-                    $btn.button('reset');
-                });
+            $('#deleteModal').modal('show');
         };
 
     }
@@ -376,7 +381,7 @@ app.controller("documentCtrl",
         // process the form
         $scope.processForm = function (field_form, model, path, event) {
             var $btn = $(event.currentTarget).button('loading');
-            var url = location.href +"/"+ path;
+            var url = location.href + "/" + path;
             HttpPostUrl($location, $http, url,
                 model,
                 function (data) {
@@ -417,26 +422,33 @@ app.controller("documentCtrl",
                 });
         };
 
+        $scope.deleteModel = {
+            title:"",
+            deleteCallback:{}
+        };
 
-        $scope.deleteSample = function (sample_form, sampleId, event) {
-            var $btn = $(event.currentTarget).button('loading');
+        $scope.deleteSample = function (sample_form, sampleId, sampleTitle) {
+            $scope.deleteModel.title = sampleTitle;
+            $scope.deleteModel.deleteCallback = function () {
+                HttpPostUrl($location, $http, location.href + "/deleteSample/" + sampleId,
+                    {sampleId: sampleId},
+                    function (data) {
+                        if (data.errorCode !== 200) {
+                            // if not successful, bind errors to error variables
+                            sample_form.$errors = data.errorMessage;
 
-            HttpPostUrl($location, $http, location.href + "/deleteSampleId/" + sampleId,
-                {sampleId: sampleId},
-                function (data) {
-                    if (data.errorCode !== 200) {
-                        // if not successful, bind errors to error variables
-                        field_form.$errors = data.errorMessage;
-                        $btn.button('reset');
-                        return false;
-                    } else {
-                        // if successful, bind success message to message
-                        location.reload();
-                    }
-                },
-                function (e) {
-                    $btn.button('reset');
-                });
+                            return false;
+                        } else {
+                            // if successful, bind success message to message
+                            location.reload();
+                        }
+                    },
+                    function (e) {
+
+                    });
+            }
+
+            $('#deleteModal').modal('show');
         };
 
         //-----------------------------------------------------------------------

@@ -5,6 +5,8 @@
     <title>User</title>
 </head>
 <body>
+
+<#include "../nav.ftl"/>
 User
 User
 User

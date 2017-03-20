@@ -167,6 +167,10 @@ public class DocumentController extends BaseController {
             return error("doc.getAppid() != app.getId()" );
         }
         documentService.deleteById(id);
+
+       // documentFieldsService.deleteBydocumentId(user.getId(),id);
+       // documentSamplesService.deleteBydocumentId(user.getId(),id);
+
         return success();
     }
 
@@ -202,19 +206,19 @@ public class DocumentController extends BaseController {
             , @PathVariable String projectName, @PathVariable String appName, @PathVariable String docName) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
-            //  return Redirect("/login");
+            return error("user == null");
         }
         Project project = projectService.getByProjectName(projectName);
         if (project == null) {
-            //   return Redirect("/projects");
+            return error("project == null");
         }
         App app = appService.getByAppName(appName, project.getId());
         if (app == null) {
-            //  return Redirect("/apps");
+            return error("app == null");
         }
         Document doc = documentService.getByDocName(docName, app.getId());
         if (doc == null) {
-            //  return Redirect("/apps");
+            return error("doc == null");
         }
         model.setUserid(user.getId());
         model.setDocumentid(doc.getId());
@@ -224,9 +228,9 @@ public class DocumentController extends BaseController {
     }
 
 
-    @RequestMapping(value = "deleteSample/{id}")
+    @RequestMapping(value = "{docName}/deleteSample/{id}")
     public ResultBase deleteSample(HttpSession session, @PathVariable String projectName,
-                             @PathVariable String appName, @PathVariable Integer id) {
+                             @PathVariable String appName, @PathVariable String docName,@PathVariable Integer id) {
 
         User user = (User) session.getAttribute("User");
         if (user == null) {
@@ -240,11 +244,17 @@ public class DocumentController extends BaseController {
         if (app == null) {
             return error("app == null");
         }
-        Document doc = documentService.getById(id);
-        if (doc.getAppid() != app.getId()) {
-            return error("doc.getAppid() != app.getId()" );
+
+        Document doc = documentService.getByDocName(docName, app.getId());
+
+        if (doc == null) {
+            return error("doc == null");
         }
-        documentService.deleteById(id);
+        Documentsamples docS = documentSamplesService.getById(id);
+        if (docS.getDocumentid() != doc.getId()) {
+            return error("docS.getDocumentid() != doc.getId()" );
+        }
+        documentSamplesService.deleteById(id);
         return success();
     }
 
