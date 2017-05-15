@@ -36,8 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author lwp
@@ -113,7 +112,13 @@ public class DocumentController extends BaseController {
         List<Document> docList = documentService.getByAppId(app.getId());
         result.addObject("docList", docList);
 
-
+        List<String> groups = new ArrayList<String>();
+        for (Document item : docList) {
+            if (groups.contains(item.getGroupname()))
+            {continue;}
+            groups.add(item.getGroupname());
+        }
+        result.addObject("groups", groups);
         return result;// View("projects/index", "projectList", projectList);
     }
 
@@ -148,7 +153,7 @@ public class DocumentController extends BaseController {
 
     @RequestMapping(value = "delete/{id}")
     public ResultBase delete(HttpSession session, @PathVariable String projectName,
-                                  @PathVariable String appName, @PathVariable Integer id) {
+                             @PathVariable String appName, @PathVariable Integer id) {
 
         User user = (User) session.getAttribute("User");
         if (user == null) {
@@ -164,12 +169,12 @@ public class DocumentController extends BaseController {
         }
         Document doc = documentService.getById(id);
         if (doc.getAppid() != app.getId()) {
-            return error("doc.getAppid() != app.getId()" );
+            return error("doc.getAppid() != app.getId()");
         }
         documentService.deleteById(id);
 
-       // documentFieldsService.deleteBydocumentId(user.getId(),id);
-       // documentSamplesService.deleteBydocumentId(user.getId(),id);
+        // documentFieldsService.deleteBydocumentId(user.getId(),id);
+        // documentSamplesService.deleteBydocumentId(user.getId(),id);
 
         return success();
     }
@@ -230,7 +235,7 @@ public class DocumentController extends BaseController {
 
     @RequestMapping(value = "{docName}/deleteSample/{id}")
     public ResultBase deleteSample(HttpSession session, @PathVariable String projectName,
-                             @PathVariable String appName, @PathVariable String docName,@PathVariable Integer id) {
+                                   @PathVariable String appName, @PathVariable String docName, @PathVariable Integer id) {
 
         User user = (User) session.getAttribute("User");
         if (user == null) {
@@ -252,7 +257,7 @@ public class DocumentController extends BaseController {
         }
         Documentsamples docS = documentSamplesService.getById(id);
         if (docS.getDocumentid() != doc.getId()) {
-            return error("docS.getDocumentid() != doc.getId()" );
+            return error("docS.getDocumentid() != doc.getId()");
         }
         documentSamplesService.deleteById(id);
         return success();

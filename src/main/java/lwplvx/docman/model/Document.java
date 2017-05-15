@@ -13,6 +13,7 @@ public class Document extends DocModelBase {
     private String documentname;
     private String httpmethod;
     private String requestpath;
+    private String groupname;
 
 
     public int getAppid() {
@@ -45,5 +46,14 @@ public class Document extends DocModelBase {
 
     public void setRequestpath(String requestpath) {
         this.requestpath = requestpath;
+    }
+
+
+    public String getGroupname() {
+        return groupname;
+    }
+
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
     }
 }
