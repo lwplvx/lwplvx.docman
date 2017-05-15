@@ -49,13 +49,16 @@ public class BaseController {
         ModelAndView view = new ModelAndView("redirect:"+viewName);
         return view;
     }
-    protected ModelAndView View(String vieName) {
-        ModelAndView view = new ModelAndView(vieName);
+    protected ModelAndView View(String viewName) {
+
+        ModelAndView view = new ModelAndView("/_viewStart");
+        view.addObject("vieName", viewName);
+//        ModelAndView view = new ModelAndView(vieName);
         return view;
     }
 
     protected ModelAndView View(String vieName, String dataName, Object data) {
-        ModelAndView view = new ModelAndView(vieName);
+        ModelAndView view = View(vieName);
         view.addObject(dataName, data);
         return view;
     }

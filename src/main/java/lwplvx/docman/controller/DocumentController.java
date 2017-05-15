@@ -80,6 +80,39 @@ public class DocumentController extends BaseController {
         return result;// View("projects/index", "projectList", projectList);
     }
 
+    @RequestMapping(value = "{docName}/test")
+    public ModelAndView test(HttpSession session, @PathVariable String projectName,
+                             @PathVariable String appName, @PathVariable String docName) {
+
+        Project project = projectService.getByProjectName(projectName);
+        if (project == null) {
+            return Redirect("/projects");
+        }
+        App app = appService.getByAppName(appName, project.getId());
+        if (app == null) {
+            return Redirect("/apps");
+        }
+        Document doc = documentService.getByDocName(docName, app.getId());
+        if (doc == null) {
+            return Redirect(String.format("%s/%s/docs", project.getProjectName(), app.getAppName()));
+        }
+
+        List<Documentfields> fieldList = documentFieldsService.getByDocumentId(doc.getId(), doc.getUserid());
+
+        ModelAndView result = View("docs/test");
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            result.addObject("user", user);
+        }
+        result.addObject("doc", doc);
+        result.addObject("fieldList", fieldList);
+
+
+        return result;
+    }
+
+
+
     @RequestMapping(value = "{docName}")
     public ModelAndView view(HttpSession session, @PathVariable String projectName,
                              @PathVariable String appName, @PathVariable String docName) {
@@ -101,11 +134,13 @@ public class DocumentController extends BaseController {
         List<Documentfields> fieldList = documentFieldsService.getByDocumentId(doc.getId(), doc.getUserid());
         List<Documentsamples> sampleList = documentSamplesService.getByDocumentId(doc.getId(), doc.getUserid());
 
-        ModelAndView result = new ModelAndView("docs/view");
+        ModelAndView result = View("docs/view");
         User user = (User) session.getAttribute("User");
         if (user != null) {
             result.addObject("user", user);
         }
+        result.addObject("project", project);
+        result.addObject("app", app);
         result.addObject("doc", doc);
         result.addObject("fieldList", fieldList);
         result.addObject("sampleList", sampleList);
@@ -121,6 +156,7 @@ public class DocumentController extends BaseController {
         result.addObject("groups", groups);
         return result;// View("projects/index", "projectList", projectList);
     }
+
 
     @RequestMapping(value = "{docName}/deleteField/{id}")
     public ResultBase deleteField(HttpSession session, @PathVariable String projectName,

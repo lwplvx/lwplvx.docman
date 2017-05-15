@@ -1,36 +1,11 @@
-<html ng-app="docmanApp">
-<head>
-    <title>Login</title>
 
-    <link href="${request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css"/>
-    <!-- Bootstrap core CSS -->
-    <link href="${request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-
-</head>
+<#assign layout="shared/_layoutAccount.ftl"/>
+<#assign title="Register"/>
 
 <body class="main-body bg-app">
 
-<nav class="navbar navbar-toggleable-sm navbar-light bg-white fixed-top">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="${request.contextPath}">Docman</a>
+<#assign renderBody>
 
-    <div class="collapse navbar-collapse ">
-
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link text-uppercase " href="${request.contextPath}/login">Login <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-uppercase" href="${request.contextPath}/register">Register</a>
-            </li>
-        </ul>
-
-    </div>
-</nav>
 <div class="container-fluid ">
     <section ng-controller="loginCtrl">
         <div class="card-login-width card m-auto bg-fade rounded-0 border-0">
@@ -71,14 +46,16 @@
     </section>
 </div>
 
-<script>
-    var serverPath ="${request.contextPath}";
-</script>
+</#assign>
+
+
+<!-- page specific plugin scripts -->
+<#assign specificScripts>
+
 <script src="${request.contextPath}/static/js/angular.min.js"></script>
-<script src="${request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script src="${request.contextPath}/static/js/bootstrap.min.js"></script>
 <script src="${request.contextPath}/static/js/app/common.js"></script>
+<script src="${request.contextPath}/static/js/angular-route.min.js"></script>
 <script src="${request.contextPath}/static/js/app/app.js"></script>
 <script src="${request.contextPath}/static/js/app/controller.js"></script>
-</body>
-</html>
+
+</#assign>

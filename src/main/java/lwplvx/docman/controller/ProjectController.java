@@ -57,7 +57,7 @@ public class ProjectController extends BaseController {
             return Redirect("/login");
         }
         List<Project> projectList = ProjectService.getByUserId(user.getId());
-        ModelAndView result=new ModelAndView("projects/index");
+        ModelAndView result= View("projects/index");
         result.addObject("user",user);
         result.addObject("projectList",projectList);
 

@@ -1,16 +1,9 @@
-<html>
-<head>
-    <title>lwplvx.docman</title>
 
-    <link href="${request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css"/>
-    <!-- Bootstrap core CSS -->
-    <link href="${request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<#assign layout="shared/_layout.ftl"/>
+<#assign title="Home"/>
 
-</head>
+<#assign renderBody>
 
-<body class="main-body">
-
-<#include "nav.ftl"/>
 
 <div class="container-fluid ">
     <section>
@@ -18,8 +11,10 @@
     </section>
 </div>
 
-<script src="${request.contextPath}/static/js/angular.min.js"></script>
-<script src="${request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script src="${request.contextPath}/static/js/bootstrap.min.js"></script>
-</body>
-</html>
+</#assign>
+
+<!-- page specific plugin scripts -->
+<#assign specificScripts>
+
+
+</#assign>

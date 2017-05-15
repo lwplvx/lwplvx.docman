@@ -28,6 +28,7 @@ import lwplvx.docman.model.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -52,6 +53,13 @@ public class HomeController extends BaseController {
 
     @RequestMapping("/register")
     public ModelAndView register() {
+        return View("register");
+    }
+
+
+    @RequestMapping("/ttt")
+    public ModelAndView ttt(HttpServletRequest request) {
+        request.getRequestURI();
         return View("register");
     }
 

@@ -105,7 +105,7 @@ public class UserController extends BaseController {
         //sessionStatus中的setComplete方法可以将session中的内容全部清空
        // sessionStatus.setComplete();
         session.removeAttribute("User");
-        return View("redirect:/");
+        return Redirect("/");
     }
 
     @RequestMapping(value = "/register")

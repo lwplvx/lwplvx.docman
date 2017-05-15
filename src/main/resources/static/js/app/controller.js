@@ -291,8 +291,8 @@ app.controller("documentAddCtrl",
         };
 
         $scope.deleteModel = {
-            title:"",
-            deleteCallback:{}
+            title: "",
+            deleteCallback: {}
         };
         $scope.deleteDocument = function (docId, docName) {
             $scope.deleteModel.title = docName;
@@ -302,7 +302,7 @@ app.controller("documentAddCtrl",
                     function (data) {
                         if (data.errorCode !== 200) {
                             // if not successful, bind errors to error variables
-                           // request_form.$errors = data.errorMessage;
+                            // request_form.$errors = data.errorMessage;
                             return false;
                         } else {
                             // if successful, bind success message to message
@@ -338,10 +338,13 @@ app.controller("documentCtrl",
             sampletype: "Request",
             change: true,
         }
-        $scope.change = function (request_form) {
-            request_form.$errors = "";
+        $scope.change = function (_form) {
+            _form.$errors = "";
             $scope.requestField_add.change = true;
             $scope.requestSample_add.change = true;
+
+            $scope.responseField_add.change = true;
+            $scope.responseSample_add.change = true;
         };
 
         $scope.is_request_field_add = false;
@@ -423,8 +426,8 @@ app.controller("documentCtrl",
         };
 
         $scope.deleteModel = {
-            title:"",
-            deleteCallback:{}
+            title: "",
+            deleteCallback: {}
         };
 
         $scope.deleteSample = function (sample_form, sampleId, sampleTitle) {
@@ -470,12 +473,6 @@ app.controller("documentCtrl",
             change: true,
         }
 
-        $scope.change = function (response_form) {
-            response_form.$errors = "";
-            $scope.responseField_add.change = true;
-            $scope.responseSample_add.change = true;
-        };
-
         $scope.is_response_field_add = false;
         $scope.is_response_sample_add = false;
 
@@ -514,6 +511,72 @@ app.controller("documentCtrl",
 
     }
 )
+
+app.controller("documentTestCtrl",
+    function ($location, $scope, $http) {
+        $scope.errorMessage;
+        $scope.testData = {
+            request: '{"field1":""}',
+            response: "",
+        };
+
+        $scope.change = function () {
+            $scope.errorMessage = "";
+        };
+
+        $scope.test = function (path, method, event) {
+            $scope.change();
+            if ($scope.testData.request=="") {
+                $scope.errorMessage = "RequestData is required.";
+                return;
+            }
+            var $btn = $(event.currentTarget).button('loading');
+            var url = path;
+            if (method === "POST") {
+                var model = {};
+                try {
+                    model = JSON.parse($scope.testData.request);
+                }
+                catch (e) {
+                    $scope.errorMessage = e.message;
+                }
+
+                HttpPostUrl($location, $http, url,
+                    model,
+                    function (data) {
+                        $btn.button('reset');
+                        $scope.testData.response = JSON.stringify(data);
+
+                    },
+                    function (e) {
+                        $btn.button('reset');
+                        $scope.errorMessage = e.message;
+                    });
+
+            } else {
+
+                HttpGetUrl($location, $http, url,
+                    function (data) {
+                        $btn.button('reset');
+
+                        $scope.testData.response = JSON.stringify(data);
+
+                    },
+                    function (e) {
+                        $btn.button('reset');
+                        $scope.errorMessage = e.message;
+                    });
+
+            }
+
+        };
+
+        //-----------------------------------------------------------------------
+
+
+    }
+)
+
 
 function registerCtrl($scope, $rootScope, $http, $location) {
 
