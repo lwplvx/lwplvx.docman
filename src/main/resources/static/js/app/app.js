@@ -5,21 +5,21 @@
 var app = angular.module('docmanApp', ["ngRoute"]);
 
 function GetUrl(url) {
-   return serverPath + "/" + url;
-   // return "/" + url;
+    return serverPath + "/" + url;
+    // return "/" + url;
 };
 
 function HttpGet($location, $http, url, success) {
     /* 
-    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
-    <META HTTP-EQUIV="Expires" CONTENT="0">
-    */
+     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+     <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+     <META HTTP-EQUIV="Expires" CONTENT="0">
+     */
     $http({
         method: 'GET',
         url: GetUrl(url),
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded', 
+            'Content-Type': 'application/x-www-form-urlencoded',
         }
     }).then(function onSuccess(response) {
         // Handle success
@@ -34,7 +34,7 @@ function HttpGet($location, $http, url, success) {
 
             setCurrentUser(null);
             $location.path("/login");
-        } else { 
+        } else {
             success(data);
         }
 
@@ -57,16 +57,16 @@ function HttpGet($location, $http, url, success) {
 function HttpPost($location, $http, url, param, success, error) {
     if (!param.API_KEY) {
         var cUser = getCurrentUser();
-        if (cUser) { 
+        if (cUser) {
             param.API_KEY = cUser.API_KEY;
-        } 
+        }
     }
 
     $http({
         method: 'POST',
         url: GetUrl(url),
         data: $.param(param),  // pass in data as strings
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).then(function onSuccess(response) {
         // Handle success
         var data = response.data;
@@ -99,19 +99,18 @@ function HttpPost($location, $http, url, param, success, error) {
 }
 
 
-function HttpPostUrl($location, $http, url, param, success, error) {
-    if (!param.API_KEY) {
-        var cUser = getCurrentUser();
-        if (cUser) {
-            param.API_KEY = cUser.API_KEY;
-        }
-    }
-
+function HttpGetUrl($location, $http, url, success, error) {
+    /*
+     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+     <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+     <META HTTP-EQUIV="Expires" CONTENT="0">
+     */
     $http({
-        method: 'POST',
+        method: 'GET',
         url: url,
-        data: $.param(param),  // pass in data as strings
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }
     }).then(function onSuccess(response) {
         // Handle success
         var data = response.data;
@@ -119,15 +118,16 @@ function HttpPostUrl($location, $http, url, param, success, error) {
         var statusText = response.statusText;
         var headers = response.headers;
         var config = response.config;
-
         //响应成功
         if (data.ResultCode === 10) {
             console.log(data);
+
             setCurrentUser(null);
             $location.path("/login");
         } else {
             success(data);
         }
+
     }).catch(function onError(response) {
         // Handle error
         var data = response.data;
@@ -139,6 +139,45 @@ function HttpPostUrl($location, $http, url, param, success, error) {
         console.log(data);
         if (error) {
             error(data);
+        }
+    });
+
+}
+function HttpPostUrl($location, $http, url, param, success, error) {
+    if (!param.API_KEY) {
+        var cUser = getCurrentUser();
+        if (cUser) {
+            param.API_KEY = cUser.API_KEY;
+        }
+    }
+    $http({
+        method: 'POST',
+        url: url,
+        data: $.param(param),  // pass in data as strings
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function onSuccess(response) {
+        // Handle success
+        var data = response.data;
+        var status = response.status;
+        var statusText = response.statusText;
+        var headers = response.headers;
+        var config = response.config;
+
+        //响应成功
+        console.log(data);
+        success(data);
+    }).catch(function onError(response) {
+        // Handle error
+        var data = response.data;
+        var status = response.status;
+        var statusText = response.statusText;
+        var headers = response.headers;
+        var config = response.config;
+        //处理响应失败
+        console.log(data);
+        if (error) {
+            if (data)
+                error(data);
         }
     });
 }
@@ -148,9 +187,15 @@ function isEmpty(value) {
     return value === null || value === "";
 }
 
-function isUndefined(value) { return typeof value === 'undefined'; }
-function isDefined(value) { return typeof value !== 'undefined'; }
-function isFunction(value) { return typeof value === 'function'; }
+function isUndefined(value) {
+    return typeof value === 'undefined';
+}
+function isDefined(value) {
+    return typeof value !== 'undefined';
+}
+function isFunction(value) {
+    return typeof value === 'function';
+}
 
 function getCurrentUser() {
     //读取 

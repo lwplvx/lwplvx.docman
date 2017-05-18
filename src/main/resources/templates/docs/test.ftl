@@ -4,7 +4,7 @@
 
 <#assign renderBody>
 
-<div class="container-fluid pb-5"  ng-app="docmanApp" ng-controller="documentTestCtrl">
+<div class="container-fluid pb-5" ng-app="docmanApp" ng-controller="documentTestCtrl">
 
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
@@ -20,12 +20,17 @@
                         <p>
                         <h6>接口地址：
                             <small>${doc.requestpath}</small>
+                            <input class="form-control" ng-model="url" type="text">
+
+                            </input>
                         </h6>
 
                         </p>
                         <p>
                         <h6>Method：
                             <small>${doc.httpmethod}</small>
+                            <input class="form-control" ng-model="method" type="text">
+                            </input>
                         </h6>
 
                         </p>
@@ -35,8 +40,7 @@
 
             <div>
 <textarea class="form-control" rows="5"
-         ng-change="change()" name="requestData" ng-model="testData.request">
-
+          ng-change="change()" name="requestData" ng-model="testData.request">
 
 </textarea>
 
@@ -59,13 +63,11 @@
 
             <div class="form-group">
 
-                <button ng-click="test('${doc.requestpath}','${doc.httpmethod}',$event)"
+                <button ng-click="test($event)"
                         class="btn btn-danger">发送
-
                 </button>
 
             </div>
-
 
 
             <div>
@@ -77,9 +79,6 @@
 
 
             </div>
-
-
-
 
 
             <hr/>
@@ -108,9 +107,11 @@
 
 <script>
 
+    var requestpath = '${doc.requestpath}';
+    var httpmethod = '${doc.httpmethod}';
 
 </script>
-s
+
 <script src="${request.contextPath}/static/js/angular.min.js"></script>
 <script src="${request.contextPath}/static/js/angular-route.min.js"></script>
 <script src="${request.contextPath}/static/js/app/app.js"></script>

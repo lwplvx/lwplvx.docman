@@ -516,63 +516,52 @@ app.controller("documentTestCtrl",
     function ($location, $scope, $http) {
         $scope.errorMessage;
         $scope.testData = {
-            request: '{"field1":""}',
+            request: '{"field1": ""}\r\nOr p=?',
             response: "",
         };
+
+        $scope.url= requestpath ;
+        $scope.method= httpmethod ;
 
         $scope.change = function () {
             $scope.errorMessage = "";
         };
-
-        $scope.test = function (path, method, event) {
+        $scope.test = function (event) {
             $scope.change();
-            if ($scope.testData.request=="") {
-                $scope.errorMessage = "RequestData is required.";
-                return;
-            }
+
             var $btn = $(event.currentTarget).button('loading');
-            var url = path;
-            if (method === "POST") {
-                var model = {};
+
+            var model = {
+                method: $scope.method,
+                url: $scope.url,
+                data: $scope.testData.request
+            };
+            if (model.method === "POST") {
                 try {
-                    model = JSON.parse($scope.testData.request);
+                    var jsonModel = JSON.parse($scope.testData.request);
+                  //  model.data = jsonModel;
                 }
                 catch (e) {
                     $scope.errorMessage = e.message;
                 }
-
-                HttpPostUrl($location, $http, url,
-                    model,
-                    function (data) {
-                        $btn.button('reset');
-                        $scope.testData.response = JSON.stringify(data);
-
-                    },
-                    function (e) {
-                        $btn.button('reset');
-                        $scope.errorMessage = e.message;
-                    });
-
-            } else {
-
-                HttpGetUrl($location, $http, url,
-                    function (data) {
-                        $btn.button('reset');
-
-                        $scope.testData.response = JSON.stringify(data);
-
-                    },
-                    function (e) {
-                        $btn.button('reset');
-                        $scope.errorMessage = e.message;
-                    });
-
             }
+            if ($scope.errorMessage && $scope.errorMessage.length > 0) {
+                return;
+            }
+            HttpPostUrl($location, $http, serverPath + "/test/post",
+                model,
+                function (data) {
+                    $btn.button('reset');
+                    $scope.testData.response = data.errorMessage;//JSON.stringify(data.errorMessage);
+
+                },
+                function (e) {
+                    $btn.button('reset');
+                    $scope.errorMessage = e.message;
+                });
 
         };
-
         //-----------------------------------------------------------------------
-
 
     }
 )
