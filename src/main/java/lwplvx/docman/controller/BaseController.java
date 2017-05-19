@@ -52,13 +52,13 @@ public class BaseController {
     protected ModelAndView View(String viewName) {
 
         ModelAndView view = new ModelAndView("/_viewStart");
-        view.addObject("vieName", viewName);
+        view.addObject("viewName", viewName);
 //        ModelAndView view = new ModelAndView(vieName);
         return view;
     }
 
-    protected ModelAndView View(String vieName, String dataName, Object data) {
-        ModelAndView view = View(vieName);
+    protected ModelAndView View(String viewName, String dataName, Object data) {
+        ModelAndView view = View(viewName);
         view.addObject(dataName, data);
         return view;
     }

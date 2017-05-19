@@ -1,7 +1,7 @@
 
 
-<#if vieName??>
-    <#include "${vieName}.ftl"/>
+<#if viewName??>
+    <#include "${viewName}.ftl"/>
 </#if>
 
 <#if layout??>

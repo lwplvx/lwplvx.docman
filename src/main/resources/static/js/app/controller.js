@@ -244,6 +244,7 @@ app.controller("documentAddCtrl",
             documentname: "",
             requestpath: "",
             httpmethod: "",
+            groupname:"",
             describes: "",
             change: true,
         }
@@ -257,6 +258,10 @@ app.controller("documentAddCtrl",
         $scope.addDocument = function (document_add_form, event) {
             if (!document_add_form.documentName.$valid) {
                 document_add_form.$errors = "DocumentName is required.";
+                return;
+            }
+            if (!document_add_form.groupname.$valid) {
+                document_add_form.$errors = "GroupName is required.";
                 return;
             }
             if (!document_add_form.requestPath.$valid) {

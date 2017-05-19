@@ -1,17 +1,8 @@
-<html>
-<head>
-    <title>lwplvx.docman</title>
 
-    <link href="${request.contextPath}/static/css/main.css" rel="stylesheet" type="text/css"/>
-    <!-- Bootstrap core CSS -->
-    <link href="${request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<#assign layout="shared/_layout.ftl"/>
+<#assign title="docs"/>
 
-</head>
-
-<body class="main-body">
-
-
-<#include "../nav.ftl"/>
+<#assign renderBody>
 
 <div class="container-fluid " <#if user??> ng-app="docmanApp" ng-controller="documentAddCtrl"</#if>>
 
@@ -28,6 +19,15 @@
                            placeholder="DocumentName" required=""
                     />
                 </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2">GroupName：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="groupname"
+                           ng-model="document_add.groupname"
+                           placeholder="GroupName" required=""
+                    /></div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2">httpMethod：</label>
@@ -126,9 +126,11 @@
 <#include "deleteModal.ftl"/>
 </div>
 
-<script src="${request.contextPath}/static/js/angular.min.js"></script>
-<script src="${request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script src="${request.contextPath}/static/js/bootstrap.min.js"></script>
+</#assign>
+
+
+<!-- page specific plugin scripts -->
+<#assign specificScripts>
 
 <#if user??>
 <script>
@@ -139,5 +141,5 @@
 <script src="${request.contextPath}/static/js/app/app.js"></script>
 <script src="${request.contextPath}/static/js/app/controller.js"></script>
 </#if>
-</body>
-</html>
+
+</#assign>

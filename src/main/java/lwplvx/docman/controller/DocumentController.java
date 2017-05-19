@@ -68,7 +68,7 @@ public class DocumentController extends BaseController {
             return Redirect("/apps");
         }
         List<Document> docList = documentService.getByAppId(app.getId());
-        ModelAndView result = new ModelAndView("docs/index");
+        ModelAndView result =  View("docs/index");
 
         User user = (User) session.getAttribute("User");
         if (user != null) {
@@ -301,19 +301,19 @@ public class DocumentController extends BaseController {
 
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public ResultBase add(HttpSession session, Document model
+    public Object add(HttpSession session, Document model
             , @PathVariable String projectName, @PathVariable String appName) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
-            // return Redirect("/login");
+             return Redirect("/login");
         }
         Project project = projectService.getByProjectName(projectName);
         if (project == null) {
-            //   return Redirect("/projects");
+             return Redirect("/projects");
         }
         App app = appService.getByAppName(appName, project.getId());
         if (app == null) {
-            //  return Redirect("/apps");
+            return Redirect("/apps");
         }
 
         model.setUserid(user.getId());
