@@ -7,7 +7,7 @@
 <div class="container-fluid pb-5" ng-app="docmanApp" ng-controller="documentTestCtrl">
 
     <div class="row">
-        <div class="col-sm-10 col-sm-offset-1">
+        <div class="col-sm-11 m-auto">
             <section>
                 <#if doc??>
                     <div>
@@ -62,11 +62,12 @@
 
 
             <div class="form-group">
-
+                <hr/>
                 <button ng-click="test($event)"
-                        class="btn btn-danger">发送
+                        class="btn btn-outline-primary">发送
                 </button>
 
+                <hr/>
             </div>
 
 
@@ -84,12 +85,12 @@
             <hr/>
 
             <div>
-                <#include "requestField.ftl"/>
+                <#include "requestFieldTest.ftl"/>
             </div>
             <hr/>
             <div>
 
-                <#include "responseField.ftl"/>
+                <#include "responseFieldTest.ftl"/>
 
             </div>
 

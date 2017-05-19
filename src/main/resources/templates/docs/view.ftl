@@ -18,7 +18,7 @@
                     <div >
                         <h4 class="form-inline">${doc.documentname}
                             <small class="ml-auto">
-                                <a class="btn btn-warning btn-sm"
+                                <a class="btn btn-outline-danger btn-sm"
                                    href="${request.contextPath}/${project.projectName}/${app.appName}/docs/${doc.documentname}/test"
                                    target="_test">
                                     测试

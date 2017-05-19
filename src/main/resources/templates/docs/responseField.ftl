@@ -8,7 +8,7 @@
                 <form name="response_form">
                     <table class="table table-striped table-bordered table-hover ">
                     <#--<thead class="thead-inverse">  -->
-                        <thead class="bg-info">
+                        <thead class="bg-success">
                         <tr>
                             <th>Name</th>
                             <th>Type</th>

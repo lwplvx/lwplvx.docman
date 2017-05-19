@@ -7,7 +7,7 @@
         <form name="request_form">
             <table class="table table-striped table-bordered table-hover ">
             <#--<thead class="thead-inverse">  -->
-                <thead class="thead-inverse">
+                <thead class="bg-info">
                 <tr>
                     <th>Name</th>
                     <th>Type</th>
