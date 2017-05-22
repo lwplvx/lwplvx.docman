@@ -6,10 +6,10 @@
         <#list groups as group>
             <#if group??>
 
-                <div class="card">
+                <div class="card rounded-0 border-bottom-0">
 
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse-${group}"
-                       aria-expanded="true" class="card-header" role="tab" id="heading-${group}"
+                       aria-expanded="true" class="card-header rounded-0" role="tab" id="heading-${group}"
                        aria-controls="${group}">
                     ${group}
                     </a>
@@ -22,7 +22,7 @@
                                 <#if item.groupname==group>
                                     <#if doc.documentname==item.documentname>
                                         <div title="${item.httpmethod},${item.requestpath}"
-                                             class="list-group-item text-success rounded-0">
+                                             class="list-group-item text-success rounded-0 border-0">
 
                                             <small class="ml-3"> ${item.documentname}</small>
 
@@ -31,7 +31,7 @@
                                     <#else>
                                         <a href="${item.documentname}"
                                            title="${item.httpmethod},${item.requestpath}"
-                                           class="list-group-item list-group-item-action">
+                                           class="list-group-item list-group-item-action rounded-0 border-0">
 
                                             <small class="ml-3"> ${item.documentname}</small>
 
@@ -51,7 +51,7 @@
                                 <#if item.groupname==group>
                                     <#if doc.documentname==item.documentname>
                                         <div title="${item.httpmethod},${item.requestpath}"
-                                             class="list-group-item text-success rounded-0">
+                                             class="list-group-item text-success rounded-0 border-0">
 
                                             <small class="ml-3"> ${item.documentname}</small>
 
@@ -60,7 +60,7 @@
                                     <#else>
                                         <a href="${item.documentname}"
                                            title="${item.httpmethod},${item.requestpath}"
-                                           class="list-group-item list-group-item-action">
+                                           class="list-group-item list-group-item-action rounded-0 border-0">
 
                                             <small class="ml-3"> ${item.documentname}</small>
 

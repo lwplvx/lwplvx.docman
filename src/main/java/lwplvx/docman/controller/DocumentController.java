@@ -76,6 +76,16 @@ public class DocumentController extends BaseController {
         }
 
         result.addObject("docList", docList);
+        result.addObject("project", project);
+        result.addObject("app", app);
+
+        List<String> groups = new ArrayList<String>();
+        for (Document item : docList) {
+            if (groups.contains(item.getGroupname()))
+            {continue;}
+            groups.add(item.getGroupname());
+        }
+        result.addObject("groups", groups);
 
         return result;// View("projects/index", "projectList", projectList);
     }

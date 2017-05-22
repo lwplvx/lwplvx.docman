@@ -10,12 +10,12 @@ druid:
     #// url: jdbc:mysql://192.168.3.197:3306/test
     #// username: mysqluser
     #// password: zyp624&mysql         
-   # url: jdbc:mysql://localhost:3306/docman
-   # username: root
-   # password: zyp424626
-    url: jdbc:mysql://13.64.148.169:3306/docman
-    username: lwplvx
-    password: Lwplvx!624
+    url: jdbc:mysql://localhost:3306/docman
+    username: root
+    password: zyp424626
+#    url: jdbc:mysql://13.64.148.169:3306/docman
+#    username: lwplvx
+#    password: Lwplvx!624
 
     initial-size: 1
     min-idle: 1
