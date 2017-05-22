@@ -15,7 +15,7 @@ druid:
    # password: zyp424626
     url: jdbc:mysql://13.64.148.169:3306/docman
     username: lwplvx
-    password: Lwplvx!624;
+    password: Lwplvx!624
 
     initial-size: 1
     min-idle: 1
